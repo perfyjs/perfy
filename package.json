@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "pretest": "webdriver-manager update",
-    "test": "protractor protractor.conf.js"
+    "test": "protractor protractor.conf.js",
+    "start": "http-server ./public -p4242 -a0.0.0.0 -c-1",
+    "merge": "node ./index.js",
+    "clean": "rimraf public/reports/*/**.json"
   },
   "homepage": "https://github.com/manekinekko/perfy",
   "bugs": "https://github.com/manekinekko/perfy/issues",
@@ -22,7 +25,12 @@
   "dependencies": {
     "@angular/benchpress": "0.1.0",
     "asyncawait": "1.0.6",
+    "fs-extra": "1.0.0",
     "glob": "7.1.1",
+    "http-server": "0.9.0",
     "protractor": "4.0.0"
+  },
+  "devDependencies": {
+    "rimraf": "^2.5.4"
   }
 }
