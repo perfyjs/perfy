@@ -5,8 +5,7 @@ const config = require('../benchpress.config');
 const runner = new benchpress.Runner(config.options(benchpress, 'angular'));
 
 let TEST = {
-  SAMPLE_SIZE: 10,
-  ADDRESS: 'http://localhost:9999/index.html',
+  ADDRESS: 'http://localhost:4200/index.html',
   COUNTS: [10, 100, 500, 1000, 2000, 3000, 4000, 5000],
   TIMEOUT_INTERVAL_VAR: 10000
 };
@@ -14,6 +13,13 @@ let TEST = {
 jasmine.DEFAULT_TIMEOUT_INTERVAL = TEST.COUNTS[TEST.COUNTS.length - 1] * TEST.TIMEOUT_INTERVAL_VAR;
 
 afterEach(async( () => {
+  
+  await(
+    require('../lib/write-files')({
+      pattern: 'public/reports/*_*.json'
+    })
+  )
+
   await (global.browser.quit());
 }) );
 
@@ -25,25 +31,37 @@ describe('Angular App: Web Components Performance Compaign', function () {
       // run code here
     };
 
-    it('time to paint (without web component)', async( (done) => {
+    xit('time to paint (without any component)', async( (done) => {
       
       browser.ignoreSynchronization = true;
       await (browser.get(`${TEST.ADDRESS}?use-wc=false`));
 
       runner.sample({
-        id: 'paint-without-web-component',
+        id: 'no-component-at-all',
         execute: async( executionBlock )
       }).then(done, done.fail);
 
     }) );
 
-    it('time to paint (with web component)', async( (done) => {
+    xit('time to paint (with web component)', async( (done) => {
+      
+      browser.ignoreSynchronization = true;
+      await (browser.get(`${TEST.ADDRESS}?use-wc=false`));
+
+      runner.sample({
+        id: 'with-web-component',
+        execute: async( executionBlock )
+      }).then(done, done.fail);
+
+    }) );
+
+    it('time to paint (with angular composant)', async( (done) => {
       
       browser.ignoreSynchronization = true;
       await (browser.get(`${TEST.ADDRESS}?use-wc=true`));
 
       runner.sample({
-        id: 'paint-with-web-component',
+        id: 'xxxxx-with-ng-component',
         execute: async( executionBlock )
       }).then(done, done.fail);
 
