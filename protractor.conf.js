@@ -51,7 +51,14 @@ exports.config = {
 
   onComplete: () => {
       console.log('[Protractor] onComplete');
-      require('./lib/write-files')('public/reports/*_*.json');
+      try {
+        require('./lib/write-files')({
+          pattern: 'public/reports/*_*.json' 
+        });
+      }
+      catch(e) {
+        console.error(e);
+      }
   },
 
   onCleanUp: () => {
