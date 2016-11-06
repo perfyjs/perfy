@@ -70,6 +70,9 @@
                             marker: {
                                 color: colors[i] ? colors[i] : 'black'
                             },
+                            line: {
+                                width: 1
+                            },
                             type: 'scatter'
                         });
                     })
@@ -77,10 +80,13 @@
                     const layout = {
                         title: metrics[0].description.metrics[metricName],
                         xaxis: {
+                            title: 'Run Index',
+                            showticklabels: true,
                             tickfont: {
                                 size: 14,
                                 color: 'rgb(107, 107, 107)'
-                            }
+                            },
+                            rangemode: 'nonnegative'
                         },
                         yaxis: {
                             title: metricName,
@@ -91,7 +97,8 @@
                             tickfont: {
                                 size: 14,
                                 color: 'rgb(107, 107, 107)'
-                            }
+                            },
+                            rangemode: 'nonnegative'
                         },
                         legend: {
                             x: 0,
@@ -99,9 +106,14 @@
                             bgcolor: 'rgba(255, 255, 255, 0)',
                             bordercolor: 'rgba(255, 255, 255, 0)'
                         },
-                        barmode: 'group',
-                        bargap: 0.15,
-                        bargroupgap: 0.1
+                        mode: 'markers',
+                        marker: {
+                            size: 7,
+                            line: {
+                                width: 0.5
+                            },
+                            opacity: 0.8
+                        }
                     };
 
                     const dom = document.createElement('div');

@@ -43,11 +43,14 @@
 
     <script>
         load([
-                "reports/paint-with-web-component_2016-10-5/paint-with-web-component.json",
-                "reports/paint-without-web-component_2016-10-5/paint-without-web-component.json"
+                "reports/ng-component_2016-10-6/ng-component.json",
+                "reports/no-component_2016-10-6/no-component.json",
+                "reports/web-component_2016-10-6/web-component.json"
             ])
             .then((metrics) => {
 
+                let dataCount = 0;
+                const metricNames = Object.keys(metrics[0].validSample[0].values)
                 const canvas = document.getElementById('canvas');
                 const colors = [
                     'f44336',
@@ -59,9 +62,13 @@
                     '3E2723'
                 ];
 
-                Object.keys(metrics[0].validSample[0].values).map((metricName) => {
+                // draw
+                metricNames.map((metricName) => {
                     draw(metricName);
                 });
+
+                // update
+                setInterval(update, 600);
 
                 function draw(metricName) {
                     const data = [];
@@ -73,17 +80,26 @@
                             marker: {
                                 color: colors[i] ? colors[i] : 'black'
                             },
+                            line: {
+                                width: 1,
+                                shape: 'line'
+                            },
                             type: 'scatter'
                         });
+                        dataCount++;
                     })
 
                     const layout = {
                         title: metrics[0].description.metrics[metricName],
                         xaxis: {
+                            title: 'Run Index',
+                            showticklabels: true,
                             tickfont: {
                                 size: 14,
                                 color: 'rgb(107, 107, 107)'
-                            }
+                            },
+                            rangemode: 'nonnegative',
+                            fixedrange: true
                         },
                         yaxis: {
                             title: metricName,
@@ -94,7 +110,8 @@
                             tickfont: {
                                 size: 14,
                                 color: 'rgb(107, 107, 107)'
-                            }
+                            },
+                            rangemode: 'nonnegative'
                         },
                         legend: {
                             x: 0,
@@ -102,11 +119,15 @@
                             bgcolor: 'rgba(255, 255, 255, 0)',
                             bordercolor: 'rgba(255, 255, 255, 0)'
                         },
-                        barmode: 'group',
-                        bargap: 0.15,
-                        bargroupgap: 0.1
+                        mode: 'markers',
+                        marker: {
+                            size: 7,
+                            line: {
+                                width: 0.5
+                            },
+                            opacity: 0.8
+                        }
                     };
-
                     const dom = document.createElement('div');
                     dom.setAttribute('class', 'mdl-card mdl-shadow--4dp');
                     dom.innerHTML = `<div class="mdl-card__supporting-text" id="${metricName}"></div>`;
@@ -114,6 +135,36 @@
                     Plotly.plot(document.getElementById(metricName), data, layout, {
                         showLink: false
                     });
+                }
+
+
+                let x = 0;
+                function update() {
+                    metricNames
+                    .map( metricName => document.getElementById(metricName))
+                    .map( graphDiv => {
+                        let rangeEnd = graphDiv.data[0].x.length;
+                        let rangeStart = 0;
+                        graphDiv.data
+                        .map(d => {
+                            let newIndex = d.x[d.x.length - 1] + 1;
+
+                            d.x = d.x.slice(1);
+                            d.y = d.y.slice(1);
+
+                            d.x.push(newIndex);
+                            d.y.push(Math.random() * 150);
+
+                            //rangeStart = 10;
+                            //rangeEnd = newIndex;
+                        });
+                        //rangeStart++;
+                        //graphDiv.layout.xaxis.range = [rangeEnd-rangeStart, rangeEnd];
+                        //console.log(graphDiv.id, graphDiv.layout.xaxis.range);
+                        Plotly.redraw(graphDiv);
+                    });
+
+
                 }
             });
 
