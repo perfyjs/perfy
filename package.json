@@ -4,8 +4,11 @@
   "description": "The perfect companion for Benchpress Performance Toolkit",
   "main": "index.js",
   "scripts": {
-    "pretest": "webdriver-manager update",
-    "test": "protractor protractor.conf.js"
+    "postinstall": "webdriver-manager update",
+    "start": "protractor protractor.conf.js",
+    "test:e2e": "mocha",
+    "test": "node ./scripts/e2e-test.js",
+    "watch:test": "node ./scripts/e2e-test.js --watch"
   },
   "homepage": "https://github.com/manekinekko/perfy",
   "bugs": "https://github.com/manekinekko/perfy/issues",
@@ -22,8 +25,18 @@
   "dependencies": {
     "@angular/benchpress": "0.1.0",
     "asyncawait": "1.0.6",
+    "cp-file": "^4.1.0",
     "glob": "7.1.1",
+    "mkdirp": "^0.5.1",
+    "plotly.js": "^1.19.2",
     "protractor": "4.0.0",
     "zone.js": "^0.6.21"
+  },
+  "devDependencies": {
+    "cross-spawn": "^5.0.1",
+    "del": "^2.2.2",
+    "execa": "^0.5.0",
+    "http-server": "^0.9.0",
+    "mocha": "^3.1.2"
   }
 }

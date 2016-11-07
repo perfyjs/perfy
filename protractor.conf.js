@@ -1,4 +1,13 @@
+
+const path = require('path')
+
 exports.config = {
+
+  perfyOptions: {
+    publicDir: path.join(__dirname, 'public'),
+    pattern: '*_*.json'
+  },
+
   allScriptsTimeout: 11000,
 
   directConnect: true,
@@ -50,8 +59,8 @@ exports.config = {
   },
 
   onComplete: () => {
-      console.log('[Protractor] onComplete');
-      require('./lib/write-files')('public/reports/*_*.json');
+    console.log('[Protractor] onComplete');
+    return require('./lib/write-files')(this.config.perfyOptions);
   },
 
   onCleanUp: () => {

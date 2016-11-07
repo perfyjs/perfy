@@ -12,7 +12,7 @@ For now, you can just clone this repo and...
 1. Npm or Yarn install its deps: `npm install`
 1. Build your own application you wanna test and serve it on a local port (i.e. 9999)
 1. Use [angular.spec.js](https://github.com/manekinekko/perfy/blob/master/specs/angular.spec.js) as an example
-1. Run `npm test`. This will run the perf compain tests
+1. Run `npm start`. This will run the perf compain tests
 1. All reports will be generated in the [public](https://github.com/manekinekko/perfy/tree/master/public) folder
 1. Run a local server to serve the public folder
 1. Enjoy 🎉

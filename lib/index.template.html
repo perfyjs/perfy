@@ -4,7 +4,7 @@
 <script src="lib/plotly.min.js"></script>
 <script>
 
-load(###FILES###)
+load(/*###FILES###*/)
 .then((metrics) => {
     
     const canvas = document.getElementById('canvas');
@@ -40,7 +40,7 @@ load(###FILES###)
                 type: 'scatter'
             });
         })
-            
+
         const layout = {
             title: metrics[0].description.metrics[metricName],
             xaxis: {
