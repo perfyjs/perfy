@@ -32,13 +32,23 @@
 
         // draw
         metricNames.map((metricName) => {
-            draw(metricName);
+            _draw(metricName);
         });
 
-        // update
-        //setInterval(update, 600);
+        let timer = null;
+        document.querySelector('#switch-realtime').addEventListener('click', function(event){
+            let target = event.target;
+            if (target.id === 'switch-realtime') {
+                if ( target.checked ) {
+                    timer = setInterval(update, 600);
+                }
+                else {
+                    clearInterval(timer);
+                }
+            }
+        });
 
-        function draw(metricName) {
+        function _draw(metricName) {
             const data = [];
             metrics.map((f, i) => {
                 data.push({
@@ -56,8 +66,7 @@
                     barmode: 'group'
                 });
                 dataCount++;
-            })
-
+            });
             const layout = {
                 title: metrics[0].description.metrics[metricName],
                 xaxis: {
@@ -135,5 +144,5 @@
 
 
         }
-    }
+    };
 }(window));
