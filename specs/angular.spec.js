@@ -6,21 +6,21 @@ const runner = new benchpress.Runner(config.options(benchpress, 'angular'));
 
 let TEST = {
     ADDRESS: 'http://localhost:4200/index.html',
-    COUNTS: [10, 100, 500, 1000, 2000, 3000, 4000, 5000, 8000, 10000],
+    COUNTS: 1,
     TIMEOUT_INTERVAL_VAR: 10000
 };
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = TEST.COUNTS[TEST.COUNTS.length - 1] * TEST.TIMEOUT_INTERVAL_VAR;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = TEST.COUNTS * 2 * TEST.TIMEOUT_INTERVAL_VAR;
 
-afterEach(async(() => {
+afterEach(async((done) => {
 
-    await (
-        require('../lib/write-files')({
-            pattern: 'public/reports/*_*.json'
-        })
-    )
+    require('../lib/write-files')({
+        pattern: 'public/reports/ng-*_*.json'
+    })
 
-    await (global.browser.quit());
+    await (protractor.browser.quit());
+    done();
+
 }));
 
 describe('Angular App: Web Components Performance Compaign', function() {
@@ -28,16 +28,16 @@ describe('Angular App: Web Components Performance Compaign', function() {
     function testPaintingTime(count) {
 
         const executionBlock = () => {
-            // run code here
+            // do nothing
         };
 
         it('time to paint (without any component)', async((done) => {
 
             browser.ignoreSynchronization = true;
-            await (browser.get(`${TEST.ADDRESS}?use-wc=false`));
+            await (browser.get(`${TEST.ADDRESS}?it=1`));
 
             runner.sample({
-                id: 'no-component',
+                id: 'ng-no-component',
                 execute: async(executionBlock)
             }).then(done, done.fail);
 
@@ -46,10 +46,10 @@ describe('Angular App: Web Components Performance Compaign', function() {
         it('time to paint (with web component)', async((done) => {
 
             browser.ignoreSynchronization = true;
-            await (browser.get(`${TEST.ADDRESS}?use-wc=false`));
+            await (browser.get(`${TEST.ADDRESS}?it=2`));
 
             runner.sample({
-                id: 'web-component',
+                id: 'ng-web-component',
                 execute: async(executionBlock)
             }).then(done, done.fail);
 
@@ -58,7 +58,7 @@ describe('Angular App: Web Components Performance Compaign', function() {
         it('time to paint (with angular composant)', async((done) => {
 
             browser.ignoreSynchronization = true;
-            await (browser.get(`${TEST.ADDRESS}?use-wc=true`));
+            await (browser.get(`${TEST.ADDRESS}?it=3`));
 
             runner.sample({
                 id: 'ng-component',
@@ -68,7 +68,7 @@ describe('Angular App: Web Components Performance Compaign', function() {
         }));
     }
 
-    for (let x = 0; x < TEST.COUNTS.length; x++) {
+    for (let x = 0; x < TEST.COUNTS; x++) {
         testPaintingTime();
     }
 

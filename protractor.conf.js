@@ -44,17 +44,19 @@ exports.config = {
 
   onPrepare: () => {
       console.log('[Protractor] onPrepare');
+
       beforeEach(function () {
         browser.ignoreSynchronization = false;
       });
+      
   },
 
   onComplete: () => {
       console.log('[Protractor] onComplete');
       try {
-        require('./lib/write-files')({
-          pattern: 'public/reports/*_*.json' 
-        });
+        // require('./lib/write-files')({
+        //   pattern: 'public/reports/*_*.json' 
+        // });
       }
       catch(e) {
         console.error(e);

@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <title>Perfy — because performance matters</title>
-    <script src="lib/plotly.min.js"></script>
-    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.pink-purple.min.css" />
+    <link rel="stylesheet" href="js/icon.css">
+    <link rel="stylesheet" href="js/material.pink-purple.min.css" />
     <style>
         .mdl-card {
             width: 95%;
@@ -41,146 +38,18 @@
         </main>
     </div>
 
+    <script defer src="js/material.min.js"></script>
+    <script src="js/plotly.min.js"></script>
+    <script src="js/perfy.js"></script>
     <script>
-        load([
-                "reports/ng-component_2016-10-6/ng-component.json",
-                "reports/no-component_2016-10-6/no-component.json",
-                "reports/web-component_2016-10-6/web-component.json"
-            ])
-            .then((metrics) => {
-
-                let dataCount = 0;
-                const metricNames = Object.keys(metrics[0].validSample[0].values)
-                const canvas = document.getElementById('canvas');
-                const colors = [
-                    'f44336',
-                    '2196F3',
-                    '6200EA',
-                    'C51162',
-                    '880E4F',
-                    'AEEA00',
-                    '3E2723'
-                ];
-
-                // draw
-                metricNames.map((metricName) => {
-                    draw(metricName);
-                });
-
-                // update
-                setInterval(update, 600);
-
-                function draw(metricName) {
-                    const data = [];
-                    metrics.map((f, i) => {
-                        data.push({
-                            x: f.validSample.map(sample => sample.runIndex),
-                            y: f.validSample.map(sample => sample.values[metricName]),
-                            name: f.description.id,
-                            marker: {
-                                color: colors[i] ? colors[i] : 'black'
-                            },
-                            line: {
-                                width: 1,
-                                shape: 'line'
-                            },
-                            type: 'scatter'
-                        });
-                        dataCount++;
-                    })
-
-                    const layout = {
-                        title: metrics[0].description.metrics[metricName],
-                        xaxis: {
-                            title: 'Run Index',
-                            showticklabels: true,
-                            tickfont: {
-                                size: 14,
-                                color: 'rgb(107, 107, 107)'
-                            },
-                            rangemode: 'nonnegative',
-                            fixedrange: true
-                        },
-                        yaxis: {
-                            title: metricName,
-                            titlefont: {
-                                size: 16,
-                                color: 'rgb(107, 107, 107)'
-                            },
-                            tickfont: {
-                                size: 14,
-                                color: 'rgb(107, 107, 107)'
-                            },
-                            rangemode: 'nonnegative'
-                        },
-                        legend: {
-                            x: 0,
-                            y: 1.0,
-                            bgcolor: 'rgba(255, 255, 255, 0)',
-                            bordercolor: 'rgba(255, 255, 255, 0)'
-                        },
-                        mode: 'markers',
-                        marker: {
-                            size: 7,
-                            line: {
-                                width: 0.5
-                            },
-                            opacity: 0.8
-                        }
-                    };
-                    const dom = document.createElement('div');
-                    dom.setAttribute('class', 'mdl-card mdl-shadow--4dp');
-                    dom.innerHTML = `<div class="mdl-card__supporting-text" id="${metricName}"></div>`;
-                    canvas.appendChild(dom);
-                    Plotly.plot(document.getElementById(metricName), data, layout, {
-                        showLink: false
-                    });
-                }
-
-
-                let x = 0;
-                function update() {
-                    metricNames
-                    .map( metricName => document.getElementById(metricName))
-                    .map( graphDiv => {
-                        let rangeEnd = graphDiv.data[0].x.length;
-                        let rangeStart = 0;
-                        graphDiv.data
-                        .map(d => {
-                            let newIndex = d.x[d.x.length - 1] + 1;
-
-                            d.x = d.x.slice(1);
-                            d.y = d.y.slice(1);
-
-                            d.x.push(newIndex);
-                            d.y.push(Math.random() * 150);
-
-                            //rangeStart = 10;
-                            //rangeEnd = newIndex;
-                        });
-                        //rangeStart++;
-                        //graphDiv.layout.xaxis.range = [rangeEnd-rangeStart, rangeEnd];
-                        //console.log(graphDiv.id, graphDiv.layout.xaxis.range);
-                        Plotly.redraw(graphDiv);
-                    });
-
-
-                }
-            });
-
-        function load(files) {
-            return Promise.all(
-                files.map(f => {
-                    return new Promise((resolve, reject) => {
-                        const xhr = new XMLHttpRequest();
-                        const handle = () => resolve(JSON.parse(xhr.response));
-                        xhr.addEventListener('load', handle);
-                        xhr.open('GET', f);
-                        xhr.send();
-                    });
-                })
-            );
-        }
+        Perfy.run([
+  "reports/ng-component_2016-10-8/ng-component.json",
+  "reports/ng-no-component_2016-10-8/ng-no-component.json",
+  "reports/ng-web-component_2016-10-8/ng-web-component.json",
+  "reports/rc-component_2016-10-8/rc-component.json",
+  "reports/rc-no-component_2016-10-8/rc-no-component.json",
+  "reports/rc-web-component_2016-10-8/rc-web-component.json"
+]);
     </script>
 
 </body>

@@ -1,2 +1,2 @@
 require('./angular.spec');
-//require('./react.spec');
+require('./react.spec');

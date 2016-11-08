@@ -5,53 +5,70 @@ const config = require('../benchpress.config');
 const runner = new benchpress.Runner(config.options(benchpress, 'react'));
 
 let TEST = {
-  SAMPLE_SIZE: 10,
-  ADDRESS: 'http://localhost:5555/index.html',
-  COUNTS: [10, 100, 500, 1000, 2000, 3000, 4000, 5000],
-  TIMEOUT_INTERVAL_VAR: 10000
+    ADDRESS: 'http://localhost:8081/index.html',
+    COUNTS: 1,
+    TIMEOUT_INTERVAL_VAR: 10000
 };
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = TEST.COUNTS[TEST.COUNTS.length - 1] * TEST.TIMEOUT_INTERVAL_VAR;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = TEST.COUNTS * 2 * TEST.TIMEOUT_INTERVAL_VAR;
 
-afterEach(async( () => {
-  await (global.browser.quit());
-}) );
+afterEach(async((done) => {
 
-describe('React App: Web Components Performance Compaign', function () {
+    require('../lib/write-files')({
+        pattern: 'public/reports/rc-*_*.json'
+    })
 
-  function testPaintingTime(count) {
+    await (global.browser.close());
+    done();
+}));
 
-    const executionBlock = () => {
-      // run code here
-    };
+describe('React App: Web Components Performance Compaign', function() {
 
-    it('time to paint (without web component)', async( (done) => {
-      
-      browser.ignoreSynchronization = true;
-      await (browser.get(`${TEST.ADDRESS}?use-wc=false`));
+    function testPaintingTime(count) {
 
-      runner.sample({
-        id: 'paint-without-web-component',
-        execute: async( executionBlock )
-      }).then(done, done.fail);
+        const executionBlock = () => {
+            // do nothing
+        };
 
-    }) );
+        it('time to paint (without any component)', async((done) => {
 
-    it('time to paint (with web component)', async( (done) => {
-      
-      browser.ignoreSynchronization = true;
-      await (browser.get(`${TEST.ADDRESS}?use-wc=true`));
+            browser.ignoreSynchronization = true;
+            await (browser.get(`${TEST.ADDRESS}?it=1`));
 
-      runner.sample({
-        id: 'paint-with-web-component',
-        execute: async( executionBlock )
-      }).then(done, done.fail);
+            runner.sample({
+                id: 'rc-no-component',
+                execute: async(executionBlock)
+            }).then(done, done.fail);
 
-    } ));
-  }
+        }));
 
-  for (let x = 0; x < TEST.COUNTS.length; x++) {
-    testPaintingTime();
-  }
+        it('time to paint (with web component)', async((done) => {
+
+            browser.ignoreSynchronization = true;
+            await (browser.get(`${TEST.ADDRESS}?it=2`));
+
+            runner.sample({
+                id: 'rc-web-component',
+                execute: async(executionBlock)
+            }).then(done, done.fail);
+
+        }));
+
+        it('time to paint (with react composant)', async((done) => {
+
+            browser.ignoreSynchronization = true;
+            await (browser.get(`${TEST.ADDRESS}?it=3`));
+
+            runner.sample({
+                id: 'rc-component',
+                execute: async(executionBlock)
+            }).then(done, done.fail);
+
+        }));
+    }
+
+    for (let x = 0; x < TEST.COUNTS; x++) {
+        testPaintingTime();
+    }
 
 });

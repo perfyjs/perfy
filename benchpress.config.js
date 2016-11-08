@@ -7,10 +7,10 @@ exports.options = (benchpress, frameworkName) => [
     { provide: benchpress.Validator, useExisting: benchpress.RegressionSlopeValidator },
     
     //use 10 samples to calculate slope regression
-    { provide: benchpress.RegressionSlopeValidator.SAMPLE_SIZE, useValue: 10 },
+    { provide: benchpress.RegressionSlopeValidator.SAMPLE_SIZE, useValue: 20 },
     
-    //use the 'timeToBootstrap' metric to calculate slope regression
-    { provide: benchpress.RegressionSlopeValidator.METRIC, useValue: 'scriptTime' },
+    //use the 'renderTime' metric to calculate slope regression
+    { provide: benchpress.RegressionSlopeValidator.METRIC, useValue: 'renderTime' },
     { provide: benchpress.Options.FORCE_GC, useValue: true },
 
     // Add Reporters : Console + Json

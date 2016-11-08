@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "webdriver-manager update",
+    "posttest": "npm run merge",
     "test": "protractor protractor.conf.js",
     "start": "http-server ./public -p4242 -a0.0.0.0 -c-1",
     "merge": "node ./index.js",
