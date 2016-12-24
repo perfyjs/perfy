@@ -1,37 +1,44 @@
 {
-  "name": "perfy",
-  "version": "1.0.0",
-  "description": "The perfect companion for Benchpress Performance Toolkit",
-  "main": "index.js",
-  "scripts": {
-    "pretest": "webdriver-manager update",
-    "posttest": "npm run merge",
-    "test": "protractor protractor.conf.js",
-    "start": "http-server ./public -p4242 -a0.0.0.0 -c-1",
-    "merge": "node ./index.js",
-    "clean": "rimraf public/reports/*/**.json"
-  },
-  "homepage": "https://github.com/manekinekko/perfy",
-  "bugs": "https://github.com/manekinekko/perfy/issues",
-  "author": "Wassim CHEGHAM <github@wassimchegham.com>",
-  "engines": {
-    "node": ">= 5.4.1 < 7"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manekinekko/perfy.git"
-  },
-  "private": false,
-  "license": "MIT",
-  "dependencies": {
-    "@angular/benchpress": "0.1.0",
-    "asyncawait": "1.0.6",
-    "fs-extra": "1.0.0",
-    "glob": "7.1.1",
-    "http-server": "0.9.0",
-    "protractor": "4.0.0"
-  },
-  "devDependencies": {
-    "rimraf": "^2.5.4"
-  }
+    "name": "perfy",
+    "version": "1.0.0",
+    "description": "The perfect companion for Benchpress Performance Toolkit",
+    "main": "index.js",
+    "bin": {
+        "perfy": "./cli.js"
+    },
+    "scripts": {
+        "pretest": "webdriver-manager update",
+        "posttest": "npm run merge",
+        "test": "protractor protractor.conf.js",
+        "http": "http-server ./public -p4242 -a0.0.0.0 -c-1",
+        "merge": "node ./index.js",
+        "clean": "rimraf public/reports/*/**.json",
+        "socket": "node ./server.js",
+        "start": "node server.js"
+    },
+    "homepage": "https://github.com/manekinekko/perfy",
+    "bugs": "https://github.com/manekinekko/perfy/issues",
+    "author": "Wassim CHEGHAM <github@wassimchegham.com>",
+    "engines": {
+        "node": ">= 5.4.1 < 7"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/manekinekko/perfy.git"
+    },
+    "private": false,
+    "license": "MIT",
+    "dependencies": {
+        "@angular/benchpress": "^0.1.0",
+        "asyncawait": "1.0.6",
+        "fs-extra": "1.0.0",
+        "glob": "7.1.1",
+        "http-server": "0.9.0",
+        "optimist": "^0.6.1",
+        "protractor": "4.0.0",
+        "socket.io": "1.5.1"
+    },
+    "devDependencies": {
+        "rimraf": "2.5.4"
+    }
 }

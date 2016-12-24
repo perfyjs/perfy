@@ -1,6 +1,7 @@
 const benchpress = require('@angular/benchpress');
 const async = require('asyncawait/async');
 const await = require('asyncawait/await');
+const socket = require('../lib/socket');
 const config = require('../benchpress.config');
 const runner = new benchpress.Runner(config.options(benchpress, 'angular'));
 
@@ -38,7 +39,13 @@ describe('Angular App: Web Components Performance Compaign', function() {
 
             runner.sample({
                 id: 'ng-no-component',
-                execute: async(executionBlock)
+                execute: async(executionBlock),
+                prepare: function() {
+
+                    }
+                    // emit: function(metricValues) {
+                    //     socket.broadcast(metricValues);
+                    // }
             }).then(done, done.fail);
 
         }));

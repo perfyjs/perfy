@@ -1,4 +1,10 @@
 (function(win){
+
+    var exampleSocket = new WebSocket("ws://0.0.0.0:4243");
+    exampleSocket.onmessage = function (event) {
+        console.log(event.data);
+    }
+
     win.Perfy = win.Perfy || {};
     win.Perfy.run = function(files) {
         win.Perfy.load(files).then(win.Perfy.draw);

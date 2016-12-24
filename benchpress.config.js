@@ -15,12 +15,17 @@ exports.options = (benchpress, frameworkName) => [
 
     // Add Reporters : Console + Json
     benchpress.JsonFileReporter.PROVIDERS,
+    // benchpress.EmitReporter.PROVIDERS,
     { provide: benchpress.JsonFileReporter.PATH, useValue: './public/reports' },
-    benchpress.MultiReporter.provideWith([benchpress.ConsoleReporter, benchpress.JsonFileReporter]),
+    benchpress.MultiReporter.provideWith([
+        benchpress.ConsoleReporter, 
+        // benchpress.EmitReporter,
+        benchpress.JsonFileReporter
+    ]),
     
     // Override some default options
     { provide: benchpress.Options.RECEIVED_DATA, useValue: false },
     { provide: benchpress.Options.REQUEST_COUNT, useValue: false },
     { provide: benchpress.Options.CAPTURE_FRAMES, useValue: false }
-
+    
 ];
