@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <title>Perfy — because performance matters</title>
-    <link rel="stylesheet" href="js/icon.css">
-    <link rel="stylesheet" href="js/material.pink-purple.min.css" />
+    <link rel="stylesheet" href="assets/icon.css">
+    <link rel="stylesheet" href="assets/material.pink-purple.min.css" />
     <style>
-        .mdl-card {
+        .mdl-card.wide {
             width: 95%;
+        }
+        
+        .mdl-card {
             margin: 10px;
         }
         
@@ -30,10 +34,6 @@
                 <div class="mdl-layout-spacer"></div>
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
                     <!--<a class="mdl-navigation__link" href="">Link</a>-->
-                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-realtime">
-                        <input type="checkbox" id="switch-realtime" class="mdl-switch__input">
-                        <span class="mdl-switch__label">Realtime</span>
-                    </label>
                 </nav>
             </div>
         </header>
@@ -42,9 +42,9 @@
         </main>
     </div>
 
-    <script defer src="js/material.min.js"></script>
-    <script src="js/plotly.min.js"></script>
-    <script src="js/perfy.js"></script>
+    <script defer src="assets/material.min.js"></script>
+    <script src="assets/plotly.min.js"></script>
+    <script src="assets/perfy.js"></script>
     <script>
         Perfy.run([]);
     </script>

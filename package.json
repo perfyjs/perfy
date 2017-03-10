@@ -14,7 +14,7 @@
         "merge": "node ./index.js",
         "clean": "rimraf public/reports/*/**.json",
         "socket": "node ./server.js",
-        "start": "node server.js"
+        "start": "npm run http"
     },
     "homepage": "https://github.com/manekinekko/perfy",
     "bugs": "https://github.com/manekinekko/perfy/issues",
