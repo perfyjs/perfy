@@ -1,0 +1,79 @@
+{
+  "description": {
+    "id": "ng-component",
+    "metrics": {
+      "scriptTime": "script execution time in ms, including gc and render",
+      "pureScriptTime": "script execution time in ms, without gc nor render",
+      "renderTime": "render time in ms",
+      "gcTime": "gc time in ms",
+      "gcAmount": "gc amount in kbytes",
+      "majorGcTime": "time of major gcs in ms"
+    },
+    "description": {
+      "forceGc": false,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
+      "sampleSize": 2,
+      "regressionSlopeMetric": "scriptTime"
+    }
+  },
+  "stats": {
+    "gcAmount": "254.89+-98%",
+    "gcTime": "1.46+-4%",
+    "majorGcTime": "0.00+-100%",
+    "pureScriptTime": "0.00",
+    "renderTime": "0.00",
+    "scriptTime": "0.00"
+  },
+  "completeSample": [
+    {
+      "runIndex": 0,
+      "timeStamp": "2017-03-10T15:34:47.328Z",
+      "values": {
+        "scriptTime": 0,
+        "pureScriptTime": 0,
+        "gcTime": 1.397000014781952,
+        "majorGcTime": 0,
+        "gcAmount": 505.144,
+        "renderTime": 0
+      }
+    },
+    {
+      "runIndex": 1,
+      "timeStamp": "2017-03-10T15:34:47.351Z",
+      "values": {
+        "scriptTime": 0,
+        "pureScriptTime": 0,
+        "gcTime": 1.522000014781952,
+        "majorGcTime": 0.008000016212463379,
+        "gcAmount": 4.632,
+        "renderTime": 0
+      }
+    }
+  ],
+  "validSample": [
+    {
+      "runIndex": 0,
+      "timeStamp": "2017-03-10T15:34:47.328Z",
+      "values": {
+        "scriptTime": 0,
+        "pureScriptTime": 0,
+        "gcTime": 1.397000014781952,
+        "majorGcTime": 0,
+        "gcAmount": 505.144,
+        "renderTime": 0
+      }
+    },
+    {
+      "runIndex": 1,
+      "timeStamp": "2017-03-10T15:34:47.351Z",
+      "values": {
+        "scriptTime": 0,
+        "pureScriptTime": 0,
+        "gcTime": 1.522000014781952,
+        "majorGcTime": 0.008000016212463379,
+        "gcAmount": 4.632,
+        "renderTime": 0
+      }
+    }
+  ]
+}

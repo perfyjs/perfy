@@ -71,7 +71,10 @@ exports.config = {
     },
 
     perfy: {
-        pattern: path.resolve('./perf_reports', '*_*.json'),
+        reportsFolder: './perf_reports',
+        reportsDataFolder: './perf_reports/data',
+        reportsFiles: './perf_reports/data/*_*.json',
+
         providers: function(benchpress) {
             return [
 
@@ -92,16 +95,11 @@ exports.config = {
                 benchpress.JsonFileReporter.PROVIDERS,
 
                 // Make sure this folder is already created and writable
-                { provide: benchpress.JsonFileReporter.PATH, useValue: path.resolve('./perf_reports/macro') },
+                { provide: benchpress.JsonFileReporter.PATH, useValue: './perf_reports/data/' },
                 benchpress.MultiReporter.provideWith([
                     benchpress.ConsoleReporter,
                     benchpress.JsonFileReporter
-                ]),
-
-                // Override some default options
-                { provide: benchpress.Options.RECEIVED_DATA, useValue: false },
-                { provide: benchpress.Options.REQUEST_COUNT, useValue: false },
-                { provide: benchpress.Options.CAPTURE_FRAMES, useValue: false }
+                ])
 
             ];
         }

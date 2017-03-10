@@ -1,8 +1,8 @@
 const benchpress = require('@angular/benchpress');
 const async = require('asyncawait/async');
 const await = require('asyncawait/await');
-const config = require('../benchpress.config');
-const runner = new benchpress.Runner(config.options(benchpress, 'react'));
+const perfy = require('../protractor.conf').config.perfy;
+const runner = new benchpress.Runner(perfy.providers(benchpress));
 
 let TEST = {
     ADDRESS: 'http://localhost:8081/index.html',
@@ -14,9 +14,9 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = TEST.COUNTS * 2 * TEST.TIMEOUT_INTERVAL_VAR;
 
 afterEach(async((done) => {
 
-    require('../lib/write-files')({
-        pattern: 'public/reports/rc-*_*.json'
-    })
+    // require('../lib/write-files')({
+    //     pattern: 'public/reports/rc-*_*.json'
+    // })
 
     await (global.browser.close());
     done();

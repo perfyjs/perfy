@@ -1,5 +1,5 @@
 {
-    "name": "perfy",
+    "name": "@perfyjs/perfy",
     "version": "1.0.0",
     "description": "The perfect companion for Benchpress Performance Toolkit",
     "main": "index.js",
@@ -8,11 +8,11 @@
     },
     "scripts": {
         "pretest": "webdriver-manager update",
-        "posttest": "npm run merge",
         "test": "protractor protractor.conf.js",
-        "http": "http-server ./public -p4242 -a0.0.0.0 -c-1",
-        "merge": "node ./index.js",
-        "clean": "rimraf public/reports/*/**.json",
+        "posttest": "npm run perfy",
+        "perfy": "node cli.js protractor.conf.js",
+        "http": "http-server ./perf_reports -p4242 -a0.0.0.0 -c-1",
+        "clean": "rimraf perf_reports/reports/*/**.json",
         "socket": "node ./server.js",
         "start": "npm run http"
     },
