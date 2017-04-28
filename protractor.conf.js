@@ -9,14 +9,14 @@ exports.config = {
             //Important for benchpress to get timeline data from the browser
             'args': [ /*'--trace-startup',*/ '--js-flags=--expose-gc', '--enable-gpu-benchmarking', '--enable-thread-composting'],
             'perfLoggingPrefs': {
-                'traceCategories': 'v8,blink.console,devtools.timeline',
-                //'traceCategories': 'v8,blink.console,disabled-by-default-devtools.timeline',
-                //"traceCategories": 'v8,toplevel,disabled-by-default-devtools.timeline.frame,blink.console,disabled-by-default-devtools.timeline,benchmark'
+                //'traceCategories': 'v8,blink.console,devtools.timeline',
+                'traceCategories': 'v8,blink.console,disabled-by-default-devtools.timeline',
+                // "traceCategories": 'v8,toplevel,disabled-by-default-devtools.timeline.frame,blink.console,disabled-by-default-devtools.timeline,benchmark'
             }
         },
         loggingPrefs: {
-            'browser': 'ALL',
-            'driver': 'ALL',
+            //'browser': 'ALL',
+            //'driver': 'ALL',
             'performance': 'ALL'
         },
     },

@@ -7,7 +7,7 @@
         "perfy": "./cli.js"
     },
     "scripts": {
-        "pretest": "webdriver-manager update",
+        "--pretest": "webdriver-manager update",
         "test": "protractor protractor.conf.js",
         "posttest": "npm run perfy",
         "perfy": "node cli.js protractor.conf.js",
@@ -16,29 +16,29 @@
         "socket": "node ./server.js",
         "start": "npm run http"
     },
-    "homepage": "https://github.com/manekinekko/perfy",
-    "bugs": "https://github.com/manekinekko/perfy/issues",
+    "homepage": "https://github.com/perfyjs/perfy",
+    "bugs": "https://github.com/perfyjs/perfy/issues",
     "author": "Wassim CHEGHAM <github@wassimchegham.com>",
     "engines": {
-        "node": ">= 5.4.1 < 7"
+        "node": ">= 5.4.1 < 8"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/manekinekko/perfy.git"
+        "url": "https://github.com/perfyjs/perfy.git"
     },
     "private": false,
     "license": "MIT",
     "dependencies": {
-        "@angular/benchpress": "^0.1.0",
+        "@angular/benchpress": "git@github.com:perfyjs/benchpress.git",
         "asyncawait": "1.0.6",
-        "fs-extra": "1.0.0",
+        "fs-extra": "3.0.0",
         "glob": "7.1.1",
         "http-server": "0.9.0",
         "optimist": "^0.6.1",
-        "protractor": "4.0.0",
-        "socket.io": "1.5.1"
+        "protractor": "~5.1.0",
+        "socket.io": "1.7.3"
     },
     "devDependencies": {
-        "rimraf": "2.5.4"
+        "rimraf": "2.6.1"
     }
 }
